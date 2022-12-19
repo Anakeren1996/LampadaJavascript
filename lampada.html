@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lâmpada</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #fce2db;
+        }
+
+        main {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        h1 {
+            margin: 10vh;
+        }
+
+        .btn {
+            width: 15vh;
+            height: 5vh;
+            margin-top: 2vh;
+            background-color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <main>
+        <header>
+            <h1>VANILLA JS</h1>
+        </header>
+
+        <div>
+            <img src="/imagens/desligada.jpg" alt="Lâmpada" id='lamp'>
+        </div>
+        <div class="botoes">
+            <button class="btn" id='turnOnOff'>Ligar</button>
+            <!-- <button class="btn" id='turnOff'>Desligar</button> -->
+        </div>
+    </main>
+    <script>
+        const turnOnOff = document.getElementById("turnOnOff");
+        // const turnOff = document.getElementById("turnOff");
+        const lamp = document.getElementById("lamp");
+
+        // VERIFICA SE A LAMPADA ESTÁ QUEBRADA
+        function isLampBroken() {
+            return lamp.src.indexOf("quebrada") > -1;
+        }
+
+        // FUNÇÃO LIGA A LAMPADA
+        function lampOn() {
+            if (!isLampBroken()) {
+                lamp.src = "./imagens/ligada.jpg";
+            }
+        }
+
+        // FUNÇÃO DESLIGA A LAMPADA
+        function lampOff() {
+            if (!isLampBroken()) {
+                lamp.src = "./imagens/desligada.jpg";
+            }
+        }
+
+        // FUNÇÃO QUEBRA A LAMPADA
+        function lampBroken() {
+            lamp.src = "./imagens/quebrada.jpg";
+        }
+
+        // FUNÇÃO QUE MUDA O TEXTO DE ACORDO SE A LAMPADA ESTA LIGADA OU NÃO
+        function lampOnOff() {
+            if (turnOnOff.textContent == "Ligar") {
+                lampOn();
+                // QUANDO A LAMPADA ESTÁ LIGADA, TROCA O TEXTO DO BOTÃO PARA DESLIGAR
+                turnOnOff.textContent = "Desligar";
+            } else {
+                lampOff();
+                // QUANDO A LAMPADA ESTÁ DESLIGADA, TROCA O TEXTO DO BOTÃO PARA LIGAR
+                turnOnOff.textContent = "Ligar";
+            }
+        }
+
+        // EXECUTA A FUNÇÃO DE LIGAR QUANDO O USUÁRIO CLICA NO BOTÃO LIGAR
+        turnOnOff.addEventListener("click", lampOnOff);
+
+        // EXECUTA A FUNÇÃO DE DESLIGAR QUANDO O USUÁRIO CLICA NO BOTÃO DESLIGAR
+        // turnOff.addEventListener("click", lampOff);
+
+        //  QUANDO PASSO O MOUSE POR CIMA DA LAMPADA ELA LIGA POR CAUSA DO MOUSEOVER
+        lamp.addEventListener("mouseover", lampOnOff);
+
+        // QUANDO O MOUSE SAI DE CIMA DA LAMPADA ELA DESLIGA POR CAUSA DO MOUSELEAVE
+        lamp.addEventListener("mouseleave", lampOnOff);
+
+        // QUANDO DA DUPLO CLIQUE A LAMPADA QUEBRA E TODAS AS FUNÇÕES PARAM E SÓ VOLTAM QUANDO RECARREGAR A PÁGINA
+        lamp.addEventListener("dblclick", lampBroken);
+    </script>
+</body>
+
+</html>
